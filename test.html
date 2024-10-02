@@ -13,31 +13,6 @@
 
     <script>
 
-        const http = require("http")
-        const port = 8080
-
-        http
-        .createServer((req, res) => {
-            const headers = {
-            // Ganti domain ini
-            "Access-Control-Allow-Origin": "https://jeffriagustiar.github.io",
-            "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
-            "Access-Control-Max-Age": 2592000,
-            }
-
-            if (req.method === "OPTIONS") {
-            res.writeHead(204, headers)
-            res.end()
-            return
-            }
-
-            // letakkan router kamu disini
-
-            res.writeHead(405, headers)
-            res.end(`${req.method} is not allowed for the request.`)
-        })
-        .listen(port)
-
         // URL API
         const apiUrl = 'http://103.152.36.196/survei/responden/isi/get_instansi?kode_jabatan=JF01008004';
 
