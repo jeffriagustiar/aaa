@@ -19,71 +19,74 @@
     </div>
 
     <script>
-        apiUrl='';
-        const dataContainer = document.getElementById('data-container');
+        // apiUrl='';
+        const apiUrl = 'http://103.152.36.196/survei/responden/isi/get_instansi?kode_jabatan=JF01008004';
+        console.log(`Updated API URL: ${apiUrl}`);
 
-        // Function to fetch data from the API
-        async function fetchData() {
-            try {
-                // Fetch data from the API
-                const response = await fetch(apiUrl);
+        // const dataContainer = document.getElementById('data-container');
 
-                // Check if response is successful
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+        // // Function to fetch data from the API
+        // async function fetchData() {
+        //     try {
+        //         // Fetch data from the API
+        //         const response = await fetch(apiUrl);
 
-                // Parse the data as JSON
-                const data = await response.json();
+        //         // Check if response is successful
+        //         if (!response.ok) {
+        //             throw new Error(`HTTP error! status: ${response.status}`);
+        //         }
 
-                // Log the raw data for debugging
-                console.log("Raw data from API:", data);
+        //         // Parse the data as JSON
+        //         const data = await response.json();
+
+        //         // Log the raw data for debugging
+        //         console.log("Raw data from API:", data);
                 
-                // Display the data in the HTML
-                displayData(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                dataContainer.innerHTML = `
-                    <p>Error loading data. Please try again later.</p>
-                    <p>Error details: ${error.message}</p>`;
-            }
-        }
+        //         // Display the data in the HTML
+        //         displayData(data);
+        //     } catch (error) {
+        //         console.error('Error fetching data:', error);
+        //         dataContainer.innerHTML = `
+        //             <p>Error loading data. Please try again later.</p>
+        //             <p>Error details: ${error.message}</p>`;
+        //     }
+        // }
 
-        // Function to display data in the HTML
-        function displayData(data) {
-            dataContainer.innerHTML = ''; // Clear any existing content
+        // // Function to display data in the HTML
+        // function displayData(data) {
+        //     dataContainer.innerHTML = ''; // Clear any existing content
 
-            if (Array.isArray(data) && data.length > 0) {
-                data.forEach(item => {
-                    const instansiElement = document.createElement('p');
-                    instansiElement.textContent = `Nama Instansi: ${item.nama_instansi}`;
-                    dataContainer.appendChild(instansiElement);
-                });
-            } else {
-                // Show raw data in the UI if no expected data is found
-                dataContainer.innerHTML = `
-                    <p>No data available in expected format.</p>
-                    <p>Raw data:</p>
-                    <pre>${JSON.stringify(data, null, 2)}</pre>`;
-            }
-        }
+        //     if (Array.isArray(data) && data.length > 0) {
+        //         data.forEach(item => {
+        //             const instansiElement = document.createElement('p');
+        //             instansiElement.textContent = `Nama Instansi: ${item.nama_instansi}`;
+        //             dataContainer.appendChild(instansiElement);
+        //         });
+        //     } else {
+        //         // Show raw data in the UI if no expected data is found
+        //         dataContainer.innerHTML = `
+        //             <p>No data available in expected format.</p>
+        //             <p>Raw data:</p>
+        //             <pre>${JSON.stringify(data, null, 2)}</pre>`;
+        //     }
+        // }
 
-        // Function to update the kode_jabatan based on user input and reload data
-        function updateKodeJabatan() {
-            const input = document.getElementById('instansi-input').value;
+        // // Function to update the kode_jabatan based on user input and reload data
+        // function updateKodeJabatan() {
+        //     const input = document.getElementById('instansi-input').value;
 
-            if (input) {
-                // Update the apiUrl with the new kode_jabatan from input
-                apiUrl = `http://103.152.36.196/survei/responden/isi/get_instansi?kode_jabatan=${input}`;
-                // console.log(`Updated API URL: ${apiUrl}`);
+        //     if (input) {
+        //         // Update the apiUrl with the new kode_jabatan from input
+        //         apiUrl = `http://103.152.36.196/survei/responden/isi/get_instansi?kode_jabatan=${input}`;
+        //         // console.log(`Updated API URL: ${apiUrl}`);
                 
-                // Fetch new data based on updated apiUrl
-                fetchData();
-            }
-        }
+        //         // Fetch new data based on updated apiUrl
+        //         fetchData();
+        //     }
+        // }
 
-        // Call fetchData when the page loads
-        fetchData();
+        // // Call fetchData when the page loads
+        // fetchData();
     </script>
 </body>
 </html>
