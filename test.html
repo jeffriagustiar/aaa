@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Data from API</title>
+</head>
+<body>
+    <h1>Data Instansi</h1>
+    <div id="data-container">
+        <p>Loading data...</p>
+    </div>
+
+    <script>
+        // URL API
+        const apiUrl = 'http://103.152.36.196/survei/responden/isi/get_instansi?kode_jabatan=JF01008004';
+
+        // Function to fetch data from the API
+        async function fetchData() {
+            try {
+                // Fetch data from the API
+                const response = await fetch(apiUrl);
+
+                // Check if response is successful
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Parse the data as JSON
+                const data = await response.json();
+
+                // Log the raw data for debugging
+                console.log("Raw data from API:", data);
+                
+                // Display the data in the HTML
+                displayData(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('data-container').innerHTML = `
+                    <p>Error loading data. Please try again later.</p>
+                    <p>Error details: ${error.message}</p>`;
+            }
+        }
+
+        // Function to display data in the HTML
+        function displayData(data) {
+            const container = document.getElementById('data-container');
+            container.innerHTML = ''; // Clear any existing content
+
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(item => {
+                    const instansiElement = document.createElement('p');
+                    instansiElement.textContent = `Nama Instansi: ${item.nama_instansi}`;
+                    container.appendChild(instansiElement);
+                });
+            } else {
+                // Show raw data in the UI if no expected data is found
+                container.innerHTML = `
+                    <p>No data available in expected format.</p>
+                    <p>Raw data:</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>`;
+            }
+        }
+
+        // Call fetchData when the page loads
+        fetchData();
+    </script>
+</body>
+</html>
