@@ -30,7 +30,7 @@
 
                 // Check if response is successful
                 if (!response.ok) {
-                    throw new Error('HTTP error! status: ' + response.status);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 // Parse the data as JSON
@@ -43,10 +43,9 @@
                 displayData(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
-                    dataContainer.innerHTML = 
-                        '<p>Error loading data. Please try again later.</p>' +
-                        '<p>Error details: ' + error.message + '</p>';
-
+                dataContainer.innerHTML = `
+                    <p>Error loading data. Please try again later.</p>
+                    <p>Error details: ${error.message}</p>`;
             }
         }
 
@@ -57,16 +56,15 @@
             if (Array.isArray(data) && data.length > 0) {
                 data.forEach(item => {
                     const instansiElement = document.createElement('p');
-                    instansiElement.textContent = 'Nama Instansi: ' + item.nama_instansi;
+                    instansiElement.textContent = `Nama Instansi: ${item.nama_instansi}`;
                     dataContainer.appendChild(instansiElement);
                 });
             } else {
                 // Show raw data in the UI if no expected data is found
-                dataContainer.innerHTML = 
-                    '<p>No data available in expected format.</p>' +
-                    '<p>Raw data:</p>' +
-                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-
+                dataContainer.innerHTML = `
+                    <p>No data available in expected format.</p>
+                    <p>Raw data:</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>`;
             }
         }
 
@@ -76,7 +74,7 @@
 
             if (input) {
                 // Update the apiUrl with the new kode_jabatan from input
-                apiUrl = 'http://103.152.36.196/survei/responden/isi/get_instansi?kode_jabatan=' + input;
+                apiUrl = `http://103.152.36.196/survei/responden/isi/get_instansi?kode_jabatan=${input}`;
                 // console.log(`Updated API URL: ${apiUrl}`);
                 
                 // Fetch new data based on updated apiUrl
